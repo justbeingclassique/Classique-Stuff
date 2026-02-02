@@ -3,150 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine?</title>
+    <title>Neurological Research Survey</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #ffeef2;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: "Times New Roman", Times, serif;
+            color: #333;
+            transition: background-color 2s ease;
+        }
+
+        /* Medical Header */
+        header {
+            background-color: #002d72; /* Classic University Blue */
+            color: white;
+            padding: 20px;
             text-align: center;
+            border-bottom: 4px solid #ffb81c;
         }
 
-        h1 {
-            color: #d63384;
-            font-size: 3.5rem;
-            z-index: 10;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .container {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            z-index: 10;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
+        .survey-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 40px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
+            border-radius: 8px;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .question label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background-color: #002d72;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            width: 100%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        /* Valentine UI (Hidden) */
+        #valentine-ui {
+            display: none;
+            text-align: center;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #ffeef2;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         #yesBtn {
             background-color: #ff4d6d;
             color: white;
             font-size: 2.5rem;
-            padding: 25px 60px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-110%);
-        }
-
-        #yesBtn:hover {
-            transform: translateX(-110%) scale(1.1);
-            background-color: #ff758f;
+            padding: 20px 60px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
         }
 
         #noBtn {
-            background-color: #adb5bd;
+            background-color: #6c757d;
             color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: none;
             position: absolute;
-            left: 50%;
-            transform: translateX(20%);
         }
 
-        /* Floating Hearts Animation */
         .heart {
-            position: absolute;
+            position: fixed;
             color: #ffb1c1;
-            font-size: 20px;
-            user-select: none;
             pointer-events: none;
-            animation: float Up 5s linear infinite;
-            z-index: 1;
+            animation: floatUp 5s linear infinite;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
         }
 
-        .success-message {
+        #success {
             display: none;
-            font-size: 3rem;
-            color: #ff4d6d;
-            font-weight: bold;
-            z-index: 10;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div id="quiz">
-        <h1>Will you be my Valentine? ❤️</h1>
-        <div class="container">
-            <button id="yesBtn" onclick="celebrate()">YES</button>
-            <button id="noBtn" onmouseover="moveButton()">No</button>
+    <div id="main-survey">
+        <header>
+            <h1 style="margin:0; font-size: 1.5rem;">JOHNS HOPKINS MEDICINE</h1>
+            <p style="margin:5px 0 0 0;">Department of Neurology & Brain Sciences</p>
+        </header>
+
+        <div class="survey-container">
+            <h2 style="text-align: center;">Clinical Cognitive Assessment</h2>
+            <p style="font-style: italic; color: #666;">Reference ID: JH-2024-99X</p>
+            <hr>
+
+            <form id="surveyForm">
+                <div class="question">
+                    <label>1. Full Name:</label>
+                    <input type="text" placeholder="Enter your response..." required>
+                </div>
+                <div class="question">
+                    <label>2. On a scale of 1-10, how often do you experience sudden "flutters" in the chest?</label>
+                    <input type="range" min="1" max="10">
+                </div>
+                <div class="question">
+                    <label>3. Do you believe neural pathways are influenced by emotional proximity?</label>
+                    <select><option>Select...</option><option>Yes</option><option>No</option><option>Inconclusive</option></select>
+                </div>
+                <div class="question">
+                    <label>4. How many hours of sleep do you average during stressful weeks?</label>
+                    <input type="text" placeholder="e.g. 6 hours">
+                </div>
+                <div class="question">
+                    <label>5. Have you noticed an increase in dopamine when thinking of a specific person?</label>
+                    <select><option>Select...</option><option>Significant Increase</option><option>Slight Increase</option><option>No Change</option></select>
+                </div>
+                <div class="question">
+                    <label>6. Describe your reaction to a surprise rose:</label>
+                    <input type="text">
+                </div>
+                <div class="question">
+                    <label>7. Are you ready for the final diagnosis?</label>
+                    <select id="finalQ"><option>Select...</option><option>Yes</option><option>I'm nervous</option></select>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="revealTruth()">Submit Clinical Data</button>
+            </form>
         </div>
     </div>
 
-    <div id="celebration" class="success-message">
-        <h1>Yay! See you on the 14th! 🥰🌹</h1>
-        <p style="font-size: 1.5rem; color: #d63384;">(I knew you couldn't say no! 😉)</p>
+    <div id="valentine-ui">
+        <h1 style="color: #d63384; font-size: 2.5rem; padding: 0 20px;">
+            Donancavann Ivainaye Masunde My Wife ❤️
+        </h1>
+        <h2 style="color: #ff4d6d; margin-bottom: 40px;">Will you be my Valentine?</h2>
+        
+        <div style="height: 200px; width: 100%; position: relative; display: flex; justify-content: center;">
+            <button id="yesBtn" onclick="showFinal()">YES</button>
+            <button id="noBtn" onmouseover="moveNo()">No</button>
+        </div>
+    </div>
+
+    <div id="success" style="text-align: center; background-color: #ffeef2; height: 100vh; display: none; flex-direction: column; justify-content: center; align-items: center;">
+        <h1 style="color: #ff4d6d; font-size: 3rem;">I knew you'd say yes, Donna! 🥰🌹</h1>
+        <p style="font-size: 1.5rem;">The diagnosis is: I'm madly in love with you.</p>
     </div>
 
     <script>
-        // Move the 'No' button randomly
-        function moveButton() {
-            const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+        let noMoves = 0;
+
+        function revealTruth() {
+            window.scrollTo(0,0);
+            document.getElementById('main-survey').style.display = 'none';
+            document.getElementById('valentine-ui').style.display = 'flex';
+            setInterval(createHeart, 300);
         }
 
-        // Show success message
-        function celebrate() {
-            document.getElementById('quiz').style.display = 'none';
-            document.getElementById('celebration').style.display = 'block';
-            // Optional: Create an explosion of hearts here too!
-            for(let i=0; i<50; i++) {
-                setTimeout(createHeart, i * 50);
+        function moveNo() {
+            if (noMoves < 999) {
+                const btn = document.getElementById('noBtn');
+                const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+                const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+                btn.style.left = x + 'px';
+                btn.style.top = y + 'px';
+                noMoves++;
             }
         }
 
-        // Create floating background hearts
         function createHeart() {
             const heart = document.createElement('div');
-            heart.classList.add('heart');
+            heart.className = 'heart';
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            heart.style.opacity = Math.random();
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
             document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            setTimeout(() => heart.remove(), 5000);
         }
 
-        // Start generating hearts
-        setInterval(createHeart, 300);
+        function showFinal() {
+            document.getElementById('valentine-ui').style.display = 'none';
+            document.getElementById('success').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
